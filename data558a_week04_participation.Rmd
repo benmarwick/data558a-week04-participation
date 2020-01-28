@@ -1,30 +1,36 @@
 ---
 title: "data558a_week04_participation"
 author: "WEconnect Health"
-date: "1/27/2020"
-output: html_document
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output: bookdown::html_document2
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r setup}
+library(tidyverse)
+library(kableExtra)
 ```
 
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+```{r first_chunk, echo = TRUE}
+x <- 2 + 2
 ```
 
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{r starwars-plot, fig.cap = "A ggplot of Starwars character heights"}
+g <- ggplot(starwars[which(starwars$species=="Human" & is.na(starwars$height)==FALSE),], aes(x = reorder(factor(name), -height), y = height))
+g + geom_bar(stat = "identity") +
+  theme_bw() +
+  labs(title = "Heights of Star Wars Characters",
+       x = "Character",
+       y = "Height") +
+  theme(axis.text.x = element_text(angle = 40, hjust = 1))
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+Some text referring to \@ref(fig:starwars-plot)
+
+```{r starwars-tbl}
+head(starwars[which(starwars$species=="Human"),],20) %>%
+  select(name, height) %>%
+  arrange(desc(height)) %>%
+  knitr::kable(caption = "A knitr kable table of starwars data")
+```
+
+We can see, in table \@ref(fig:starwars-tbl) that people have heights.
