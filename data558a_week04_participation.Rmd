@@ -32,5 +32,5 @@ head(starwars[which(starwars$species=="Human"),],20) %>%
   arrange(desc(height)) %>%
   knitr::kable(caption = "A knitr kable table of starwars data")
 ```
-
-We can see, in table \@ref(fig:starwars-tbl) that people have heights.
+  
+We can see, in table \@ref(tab:starwars-tbl) that people have heights.
