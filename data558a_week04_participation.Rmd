@@ -1,20 +1,23 @@
 ---
 title: "data558a_week04_participation"
-author: "WEconnect Health"
+author: "Will Wright"
 date: "`r format(Sys.time(), '%d %B %Y')`"
 output: bookdown::html_document2
 ---
 
-```{r setup}
+```{r setup, echo = FALSE, warning = FALSE, message = FALSE}
 library(tidyverse)
 library(kableExtra)
 ```
 
 ```{r first_chunk, echo = TRUE}
+cat("Example of trivial r code in a chunk")
 x <- 2 + 2
 ```
 
-```{r starwars-plot, fig.cap = "A ggplot of Starwars character heights"}
+Example of in-line R code, which references that chunk: x = `r x`.  
+
+```{r starwars-plot, fig.cap = "A ggplot of human Starwars character heights"}
 g <- ggplot(starwars[which(starwars$species=="Human" & is.na(starwars$height)==FALSE),], aes(x = reorder(factor(name), -height), y = height))
 g + geom_bar(stat = "identity") +
   theme_bw() +
@@ -26,11 +29,15 @@ g + geom_bar(stat = "identity") +
 
 Some text referring to \@ref(fig:starwars-plot)
 
-```{r starwars-tbl}
+```{r starwars-tbl, fig.cap = "A table of human Starwars character heights"}
 head(starwars[which(starwars$species=="Human"),],20) %>%
   select(name, height) %>%
   arrange(desc(height)) %>%
   knitr::kable(caption = "A knitr kable table of starwars data")
 ```
   
-We can see, in table \@ref(tab:starwars-tbl) that people have heights.
+We can see, in table \@ref(tab:starwars-tbl) that people have heights.  
+
+And finally, here is an image of some characters' relative heights:  
+![Character Heights](star_wars_heights.png)
+
