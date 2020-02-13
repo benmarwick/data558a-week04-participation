@@ -13,7 +13,12 @@ jobs:
       - uses: r-lib/actions/setup-tinytex@master
       - name: render-rmd
         run: |
-          install.packages(c("bookdown", "tidyverse", "rmarkdown", "knitr"))
+          install.packages(c("bookdown", "tidyverse", "rmarkdown", "knitr", "devtools"))
+          # install pkgs used in Rmd files
+          devtools::install_github("ThinkR-open/attachment")
+          library(tidyverse)
+          attachment::att_from_rmds(path = ".") %>% attachment::install_if_missing()
+          # render all Rmd files
           rmds <- list.files(pattern = "Rmd|rmd")
           lapply(rmds, rmarkdown::render)
         shell: Rscript {0}
