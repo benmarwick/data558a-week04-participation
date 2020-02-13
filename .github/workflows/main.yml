@@ -5,7 +5,7 @@ name: render-rmd
 jobs:
   render:
     name: render Rmd
-    runs-on: ubuntu-18.04
+    runs-on: macOS-latest
     steps:
       - uses: actions/checkout@v1
       - uses: r-lib/actions/setup-r@v1
