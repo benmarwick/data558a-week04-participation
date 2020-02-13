@@ -1,0 +1,18 @@
+on: [push]
+
+name: render-rmd
+
+jobs:
+  render:
+    name: render Rmd
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v1
+      - uses: r-lib/actions/setup-r@v1
+      - uses: r-lib/actions/setup-pandoc@v1
+      - uses: r-lib/actions/setup-tinytex@master
+        run: |
+          install.packages(c("bookdown", "tidyverse", "rmarkdown", "knitr"))
+          rmds <- list.files(pattern = "Rmd|rmd")
+          lapply(rmds, rmarkdown::render)
+        shell: Rscript {0}
